@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 35%;
+}
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+</style>
+<head>
+    <title>Predicting Pitch Type</title>
+</head>
+<form action="/" method='POST'>
+    <fieldset>
+        <legend>Input values:</legend>
+        stand:
+        <input name="stand" type="number" required>
+        <br>
+        <br> p_throws:
+        <input name="p_throws" type="number" required>
+		<br>
+        <br>count:
+		<input name="count" type="number" required>
+		<br>
+		<br> last_pitch:
+        <input name="last_pitch" type="number" required>
+        <br>
+		<br> outs:
+        <input name="outs" type="number" required>
+        <br>
+		<br> inning:
+        <input name="inning" type="number" required>
+        <br>
+		<br> base_count:
+        <input name="base_count" type="number" required>
+        <br>
+        <input type="submit">
+    </fieldset>
+</form>
+<br>
+<div class="result" align="center">
+    {% if result is defined %}
+        {% for variable, value in original_input.items() %}
+            <b>{{ variable }}</b> : {{ value }}
+        {% endfor %}
+        <br>
+        <br> Predicted number of bikes in use:
+           <p style="font-size:50px">{{ result }}</p>
+    {% endif %}
+</div>
+</html>

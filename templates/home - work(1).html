@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 35%;
+}
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+</style>
+<head>
+    <title>Predicting Pitch Type</title>
+</head>
+<form action="/" method='POST'>
+    <fieldset>
+        <legend>Input values:</legend>
+        stand:
+		<select id="stand" name="stand">
+			<option value="0">Left</option>
+			<option value="1">Right</option>
+		</select>
+        <br>
+        <br> p_throws:
+        <select id="p_throws" name="p_throws">
+			<option value="0">Left</option>
+			<option value="1">Right</option>
+		</select>
+		<br>
+        <br>count:
+		<select id="count" name="count">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<br>
+		<br>last_pitch:
+		<select id="last_pitch" name="last_pitch">
+			<option value="0">Fastball</option>
+			<option value="1">Breaking ball</option>
+			<option value="2">Breaking Pitch</option>
+			<option value="3">N/A</option>
+		</select>
+        <br>
+		<br> outs:
+		<select id="outs" name="outs">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+        <br>
+		<br> inning:
+		<select id="inning" name="inning">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+		</select>
+        <br>
+		<br> base_count:
+		<select id="base_count" name="base_count">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+        <br>
+        <input type="submit">
+    </fieldset>
+</form>
+<br>
+<div class="result" align="center">
+    {% if result is defined %}
+        {% for variable, value in original_input.items() %}
+            <b>{{ variable }}</b> : {{ value }}
+        {% endfor %}
+        <br>
+        <br> Predicted number of bikes in use:
+           <p style="font-size:50px">{{ result }}</p>
+    {% endif %}
+</div>
+</html>

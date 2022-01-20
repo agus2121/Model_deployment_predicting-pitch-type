@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<style>
+
+.result {
+    border: 1px solid #ccc;
+	align-self: Right;
+	width: 400px;
+	height: 500px;
+}
+option {
+	width :200px;
+}
+label {
+	font-weight: bold;
+	font-size: 13px;
+}
+form { 
+	padding-left: 100px;
+}
+.pengantar {
+	text-align: justify;
+  	text-justify: inter-word;
+	margin-left: 100px;
+	margin-right: 100px;
+	text-indent: 40px;
+}
+.judul {
+	padding-left: 100px;
+	font-weight: bold;
+	font-size: 17px;
+}
+.caption {
+	font-size: 15px;
+	text-align: center;
+} 
+h2 {
+	text-align: center;
+}
+.img-thumbnail {
+	width: 700px;
+	height: 300px;
+	align-items: center;
+}
+body {
+	background-color: rgb(193, 127, 255);
+}
+</style>
+<head>
+    <title>Predicting Pitch Type</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<h2>Predicting Pitch Type in MLB</h2>
+	<div class="row">
+        <div class="col-md-12">
+            <div class="thumbnail">
+                <center><img src="{{url_for('static', filename='v9d87gj1wrapw3wguheu.jpg')}}" class="img-thumbnail"/></center>
+				<!--<center><img src="Images/v9d87gj1wrapw3wguheu.jpg" class="img-thumbnail"/></center>-->
+                <div class="caption">
+                     <p>Identifikasi Tipe Lemparan pada Pitcher
+                </div>
+            </div>
+        </div>
+	</div>
+	<br>
+	<p class="pengantar">Bisbol adalah olahraga yang dimainkan oleh dua tim yang terdiri dari 9 pemain inti tiap 
+		timnya. Dalam bisbol terdapat 9 babak atau yang disebut inning. Dalam satu inning, tim yang 
+		bertanding masing-masing mempunyai kesempatan untuk menyerang dan bertahan. Tim yang mendapat 
+		giliran menyerang akan mendapat kesempatan memukul bola (batting) yang dilempar oleh pitcher 
+		lawan untuk mencetak angka (run). Ada beberapa cara yang bisa dilakukan batter supaya bisa memukul 
+		bola yang datang, hanya menunggu bola lurus yang mudah untuk memukul atau menebak lemparan apa yang 
+		akan dilempar selanjutnya. Banyak pertimbangan yang dipikirkan ketika menebak bola yang akan datang, 
+		siapa pitchernya, berapa skor saat ini, berapa orang yang ada di base. Berdasarkan Website resmi 
+		MLB bahwa terdapat 13 tipe lemparan, tetapi saya menyederhakannya hanya menjadi 3 jenis lemparan 
+		yaitu: Fastball, Breaking Pitch, Change Up. </p>
+	<div class="modal-body row">
+		<div class="col-md-6 align-content-center">
+			<p class="judul">Input Values:</p>
+			<div class="content">
+				<div class="form-container">
+					<form action = "/" method="POST">
+						<div class="form-group row">
+							<label class="control-label col-md-3" >Ball_Count</label>
+							<div class="col-md-5">
+								<select class="form-control" select_id="b_count" name="b_count">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Strike_Count</label>
+							<div class="col-md-5">
+								<select class="form-control" select_id="s_count" name="s_count">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Outs</label>
+							<div class="col-md-5">
+								<select class="form-control" select_id="outs" name="outs">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Inning</label>
+							<div class="col-md-5">
+								<select class="form-control"  select id="inning" name="inning">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Batter_Stand</label>
+							<div class="col-md-5">
+								<select class="form-control"  select_id="stand" name="stand">
+									<option value="0">Left Batter Box</option>
+									<option value="1">Right Batter Box</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Pitcher_Throw</label>
+							<div class="col-md-5">
+								<select class="form-control" select_id="p_throws" name="p_throws">
+									<option value="0">Left Hand</option>
+									<option value="1">Right Hand</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Base_Count</label>
+							<div class="col-md-5">
+								<select class="form-control" select_id="base_count" name="base_count">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Last_Pitch</label>
+							<div class="col-md-5">
+								<select class="form-control" select_id="last_pitch" name="last_pitch">
+									<option value="0">Fastball</option>
+									<option value="1">Breaking Pitch</option>
+									<option value="2">Change Up</option>
+									<option value="3">No Pitch</option>
+								</select>	
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="control-label col-md-3">Last_Result</label>
+							<div class="col-md-5">
+								<select class="form-control"  select_id="last_result" name="last_result">
+									<option value="0">No Pitch</option>
+									<option value="1">Strike</option>
+									<option value="2">Ball</option>
+									<option value="3">In Play(outs)</option>
+								</select>	
+							</div>
+						</div>
+						<input type="submit" value="Submit">
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="result" align="center">
+				{% if result is defined %}
+					{% for variable, value in original_input.items() %}
+					{% endfor %}
+					<br><p style ="font-size:30px">Pitcher Will Throw:</p>
+					<p style="font-size:50px">{{ result }}</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</body>
+</html>

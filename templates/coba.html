@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<style>
+.form {
+    margin: auto;
+    width: 35%;
+}
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+</style>
+<head>
+    <title>Predicting Pitch Type</title>
+</head>
+<div>
+	<form action="/" method="POST">
+		<label for="b_count">ball_count</label>
+		<select id="b_count" input name="b_count" type="number">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<br>
+		<label for="s_count">strike_count</label>
+		<select id="s_count" name="s_count">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<br>
+		<label for="outs">outs</label>
+		<select id="outs" name="outs">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<br>
+		<label for="inning">inning</label>
+		<select id="inning" name="inning">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+		</select>
+		<br>
+		<label for="stand">stand</label>
+		<select id="stand" name="stand">
+			<option value="0">Left</option>
+			<option value="1">Right</option>
+		</select>
+		<br>
+		<label for="p_throws">p_throws</label>
+		<select id="p_throws" name="p_throws">
+			<option value="0">Left</option>
+			<option value="1">Right</option>
+		</select>
+		<br>
+		<label for="base_count">base_count</label>
+		<select id="base_count" name="base_count">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<br>
+		<label for="last_pitch">Last_Pitch</label>
+		<select id="p_throws" name="p_throws">
+			<option value="0">Fastball</option>
+			<option value="1">Breaking ball</option>
+			<option value="2">Breaking Pitch</option>
+			<option value="3">N/A</option>
+		</select>
+		<br>
+		<label for="last_result">Last_Result</label>
+		<select id="last_result" name="last_result">
+			<option value="0">N/A</option>
+			<option value="1">S</option>
+			<option value="2">B</option>
+			<option value="3">X</option>
+		</select>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+<br>
+<div class="result" align="center">
+    {% if result is defined %}
+        {% for variable, value in original_input.items() %}
+            <b>{{ variable }}</b> : {{ value }}
+        {% endfor %}
+        <br>
+        <br> Predicted Pitch Type:
+           <p style="font-size:50px">{{ result }}</p>
+    {% endif %}
+</div>
+</html>
